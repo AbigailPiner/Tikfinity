@@ -85,7 +85,7 @@
         }
 
         function connectToTikfinity() {
-            const ws = new WebSocket('ws://localhost:8080/');
+            const ws = new WebSocket('ws://localhost:21213/');
             ws.onopen = () => {
                 console.log('Connected to Tikfinity');
                 ws.send(JSON.stringify({ command: 'subscribe', channel: 'likes', user: 'justabbygal' }));
