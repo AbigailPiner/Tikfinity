@@ -85,19 +85,22 @@
         }
 
         function connectToTikfinity() {
-            const ws = new WebSocket('wss://tikfinity.zerody.one/api/v1/events');
+            const ws = new WebSocket('wss://tiktok-ws.zerody.one');
             ws.onopen = () => {
-                console.log('Connected to Tikfinity');
-                ws.send(JSON.stringify({ command: 'subscribe', channel: 'likes', user: 'justabbygal' }));
+                console.log('Connected to TikTok Live Connector');
+                ws.send(JSON.stringify({ 
+                    type: 'connect', 
+                    uniqueId: 'justabbygal' 
+                }));
             };
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 if (data.type === 'like') {
-                    updateProgressBar(data.total);
+                    updateProgressBar(data.totalLikes);
                 }
             };
             ws.onclose = () => {
-                console.log('Disconnected from Tikfinity');
+                console.log('Disconnected from TikTok Live Connector');
                 setTimeout(connectToTikfinity, 5000);
             };
         }
