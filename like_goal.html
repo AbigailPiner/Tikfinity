@@ -85,20 +85,20 @@
         }
 
         function connectToTikfinity() {
-            const ws = new WebSocket('ws://localhost:21213/');
+            const ws = new WebSocket('ws://localhost:8080/');
             ws.onopen = () => {
-                console.log('Connected to Tikfinity');
+                console.log('Connected to Tikfinity through proxy');
                 ws.send(JSON.stringify({ command: 'subscribe', channel: 'likes', user: 'justabbygal' }));
             };
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
-                console.log(data); // For debugging: log the received data
+                console.log('Received data:', data); // For debugging: log the received data
                 if (data.type === 'like') {
                     updateProgressBar(data.total);
                 }
             };
             ws.onclose = () => {
-                console.log('Disconnected from Tikfinity');
+                console.log('Disconnected from Tikfinity through proxy');
                 setTimeout(connectToTikfinity, 5000);
             };
         }
