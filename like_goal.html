@@ -88,7 +88,7 @@
             const ws = new WebSocket('wss://tikfinity.zerody.one/api/v1/events');
             ws.onopen = () => {
                 console.log('Connected to Tikfinity');
-                ws.send(JSON.stringify({ command: 'subscribe', channel: 'likes' }));
+                ws.send(JSON.stringify({ command: 'subscribe', channel: 'likes', user: 'justabbygal' }));
             };
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
